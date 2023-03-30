@@ -1,5 +1,7 @@
 rules:
-  - name: "Require confirmation before merging"
+  - name: "Require labels and status checks before merging"
     conditions:
-      - confirm: "Have you checked the code thoroughly?"
+      - label: "ready-to-merge"
+      - label: "approved"
       - status: "success"
+      - status: "deployed"
