@@ -1,6 +1,7 @@
 rules:
-  - name: "Require labels and status checks before merging"
+  - name: "Require labels and status checks before merging HANI HANI"
     conditions:
+      - review-approve-count: 1
       - label: "ready-to-merge"
       - label: "approved"
       - status: "success"
