@@ -1,0 +1,16 @@
+name: Check Condition Before Merge
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  check-condition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Condition
+        run: |
+          # Check for condition here, e.g. check if a certain file exists
+          if [ ! -f path/to/file ]; then
+            echo "Error: Condition not met. Please check before merging to master."
+            exit 1
+          fi
