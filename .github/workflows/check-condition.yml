@@ -2,7 +2,7 @@ name: Check Condition Before Merge
 on:
   pull_request:
     branches:
-      - master
+      - main
 jobs:
   check-condition:
     runs-on: ubuntu-latest
