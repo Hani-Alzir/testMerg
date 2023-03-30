@@ -1,20 +1,18 @@
-name: Check Before Merge
+name: Input Prompt Workflow
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
-  check-platform:
+  input-prompt:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Platform
+      - name: Prompt User for Input
         run: |
-          # Prompt the user to check a specific platform before merging
-          echo "Please check the platform before merging to master."
-          read -p "Have you checked the platform? [y/n]: " response
-          if [ "$response" = "y" ]; then
-            echo "Continuing with merge."
+          read -p "Have you checked the other platform? (y/n) " yn
+          if [[ $yn == "y" ]]; then
+            echo "Okay to merge!"
           else
-            echo "Aborting merge."
+            echo "Please check the other platform before merging."
             exit 1
           fi
