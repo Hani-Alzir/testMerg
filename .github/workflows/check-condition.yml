@@ -18,3 +18,4 @@ jobs:
             echo "Aborting merge."
             exit 1
           fi
+
