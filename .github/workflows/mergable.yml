@@ -1,0 +1,5 @@
+rules:
+  - name: "Require confirmation before merging"
+    conditions:
+      - confirm: "Have you checked the code thoroughly?"
+      - status: "success"
