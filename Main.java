@@ -3,7 +3,6 @@ public class Main {
         System.out.println("Hello");
         System.out.println("5");
 
-        System.out.println("sacsa");
 
 
     }
