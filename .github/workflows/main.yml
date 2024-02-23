@@ -1,14 +1,31 @@
-            - name: Review reminder
-  # You may pin to the exact commit or the version.
-  # uses: blombard/review-reminder@f40353f8d1d986c9ab666f4a0aa61c68649583b8
-  uses: blombard/review-reminder@v0.7
-  with:
-    # Your GITHUB_TOKEN secret
-    token: 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
-    # Message to the requested reviewers
-    reminder-comment: Hello make sure to do this thing before merging
-    # The number of days before the requested reviewers will receive a reminder
-    days-before-reminder: # default is 1
-    # Default organization for sending review request
-    organization: # optional
+name: Pull Request Reminder
+on:
+    pull_request:
+        types: [opened]
+
+jobs:
+    send-reminder:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Send Reminder
+              uses: actions/github-script@v7
+              with:
+                  github-token: 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
+                  script: |
+                      try {
+                        const prCreator = github.context.payload.pull_request.user.login;
+                        const prUrl = github.context.payload.pull_request.html_url;
+                      
+                        const reminderMessage = `Hi @${prCreator}! Thanks for opening the pull request. Please remember to review our contribution guidelines before merging. You can find them [here](${prUrl}).`;
+                      
+                        github.issues.createComment({
+                          owner: github.context.repo.owner,
+                          repo: github.context.repo.repo,
+                          issue_number: github.context.payload.pull_request.number,
+                          body: reminderMessage
+                        });
+                        console.log("Reminder comment posted successfully.");
+                      } catch (error) {
+                        console.error("Error occurred while posting reminder comment:", error);
+                      }
 
