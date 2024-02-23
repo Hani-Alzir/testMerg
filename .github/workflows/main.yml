@@ -1,0 +1,14 @@
+            - name: Review reminder
+  # You may pin to the exact commit or the version.
+  # uses: blombard/review-reminder@f40353f8d1d986c9ab666f4a0aa61c68649583b8
+  uses: blombard/review-reminder@v0.7
+  with:
+    # Your GITHUB_TOKEN secret
+    token: 
+    # Message to the requested reviewers
+    reminder-comment: # optional, default is Don't forget to review this PR !
+    # The number of days before the requested reviewers will receive a reminder
+    days-before-reminder: # default is 1
+    # Default organization for sending review request
+    organization: # optional
+          
