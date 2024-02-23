@@ -8,20 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Reminder
-        uses: actions/github-script@v5
+        uses: actions/github-script@latest
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { context, github } = require('@actions/github');
+            try {
+              const prCreator = github.context.payload.pull_request.user.login;
+              const prUrl = github.context.payload.pull_request.html_url;
 
-            const prCreator = context.payload.pull_request.user.login;
-            const prUrl = context.payload.pull_request.html_url;
+              const reminderMessage = `Hi @${prCreator}! Thanks for opening the pull request. Please remember to review our contribution guidelines before merging. You can find them [here](${prUrl}).`;
 
-            const reminderMessage = `Hi @${prCreator}! Thanks for opening the pull request. Please remember to review our contribution guidelines before merging. You can find them [here](${prUrl}).`;
-
-            github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: reminderMessage
-            });
+              github.issues.createComment({
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
+                issue_number: github.context.payload.pull_request.number,
+                body: reminderMessage
+              });
+              console.log("Reminder comment posted successfully.");
+            } catch (error) {
+              console.error("Error occurred while posting reminder comment:", error);
+            }
