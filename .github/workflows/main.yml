@@ -4,11 +4,11 @@
   uses: blombard/review-reminder@v0.7
   with:
     # Your GITHUB_TOKEN secret
-    token: 
+    token: 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
     # Message to the requested reviewers
-    reminder-comment: # optional, default is Don't forget to review this PR !
+    reminder-comment: Hello make sure to do this thing before merging
     # The number of days before the requested reviewers will receive a reminder
     days-before-reminder: # default is 1
     # Default organization for sending review request
     organization: # optional
-          
+
