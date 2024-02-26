@@ -1,31 +1,33 @@
-name: Pull Request Reminder
+name: Pull Request ReminderMain
 on:
-    pull_request:
-        types: [opened]
-
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+    types: [ opened ]
 jobs:
-    send-reminder:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Send Reminder
-              uses: actions/github-script@v7
-              with:
-                  github-token: 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
-                  script: |
-                      try {
-                        const prCreator = github.context.payload.pull_request.user.login;
-                        const prUrl = github.context.payload.pull_request.html_url;
-                      
-                        const reminderMessage = `Hi @${prCreator}! Thanks for opening the pull request. Please remember to review our contribution guidelines before merging. You can find them [here](${prUrl}).`;
-                      
-                        github.issues.createComment({
-                          owner: github.context.repo.owner,
-                          repo: github.context.repo.repo,
-                          issue_number: github.context.payload.pull_request.number,
-                          body: reminderMessage
-                        });
-                        console.log("Reminder comment posted successfully.");
-                      } catch (error) {
-                        console.error("Error occurred while posting reminder comment:", error);
-                      }
+  send-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Reminder
+        uses: actions/github-script@v7
+        with:
+          github-token: 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
+          script: |
+            try {
+              const prCreator = github.context.payload.pull_request.user.login;
+              const prUrl = github.context.payload.pull_request.html_url;
+            
+              const reminderMessage = `Hi @${prCreator}! Thanks for opening the pull request. Please remember to review our contribution guidelines before merging. You can find them [here](${prUrl}).`;
+            
+              github.issues.createComment({
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
+                issue_number: github.context.payload.pull_request.number,
+                body: reminderMessage
+              });
+              console.log("Reminder comment posted successfully.");
+            } catch (error) {
+              console.error("Error occurred while posting reminder comment:", error);
+            }
 

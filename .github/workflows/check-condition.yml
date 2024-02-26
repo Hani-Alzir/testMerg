@@ -1,8 +1,10 @@
 name: Input Prompt Workflow
 on:
-  push:
-    branches:
-      - main
+  push :
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+    types: [opened]
 jobs:
   input-prompt:
     runs-on: ubuntu-latest
