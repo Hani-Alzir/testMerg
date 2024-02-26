@@ -1,0 +1,20 @@
+name: Close Stale Pull Requests
+
+# You can read more about this action here:
+# https://github.com/actions/stale
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run every day at midnight
+
+jobs:
+  close_stale_prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close stale pull requests
+        uses: actions/stale@v9
+        with:
+          #days-before-stale: 30 # Idle number of days before marking issues/PRs stale
+          minutes-before stale: 2 # Idle number of minutes before marking issues/PRs stale
+          days-before-close: 7  # Idle number of days before closing stale issues/PRs
+          stale-pr-message: 'Imagine not doing the only thing you need to do when making a pull request, go fix Now'
